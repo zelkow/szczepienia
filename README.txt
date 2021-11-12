@@ -1,16 +1,23 @@
-gcloud project create prj-jupiter
-export PROJECT_ID=prj-jupiter
-gcloud config set project prj-jupiter
-docker pull jupyter/datascience-notebook
-gcloud auth configure-docker 
-docker tag jupyter/datascience-notebook eu.gcr.io/prj-jupiter/jupyter:v1
-docker push eu.gcr.io/prj-jupiter/jupyter:v1
-docker ps
+Ploting current vaccination rates in Poland
 
-# local jupiter notebook server, with persistance on host
-docker exec -it 8777339c165 jupyter notebook list
-sudo docker run -p 8888:8888 -e JUPYTER_ENABLE_LAB=yes -v /home/sdgo/git/jupiter/data:/home/jovyan/work  -d jupyter/datascience-notebook
+# Data sources
+Data are taken from open data portal
+https://dane.gov.pl/en/dataset/2476,odsetek-osob-zaszczepionych-przeciwko-covid19-w-gm
 
+# Date : 2021-11-11
+https://dane.gov.pl/en/dataset?categories%5Bid%5D%5Bterms%5D=147
 
-docker run --rm -p 10000:8888 -e JUPYTER_ENABLE_LAB=yes -v ""/home/sdgo/git/jupiter/data:/home/ jupyter/datascience-notebook:33add21fab64
+# Python is started using Jupyter notebook
+
+# Jupiter notebook is settup using local container based on jupyter/datascience-notebook
+
+https://jupyter-docker-stacks.readthedocs.io/en/latest/index.html
+
+# this download and run the container :
+
+docker run --rm -p 8888:8888 -e JUPYTER_ENABLE_LAB=yes -v ""$HOME/git/szczepiania/data:/home/ jupyter/datascience-notebook:33add21fab64
+
+# Data
+
+The cvs file is downloaded to ./data repo and loaded to a dataframe
 
